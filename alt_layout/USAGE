@@ -1,0 +1,8 @@
+Description:
+    alt_layout generator generates a haml + blueprint-css layout for
+    a controller.
+
+Example:
+    ./script/generate alt_layout Posts
+
+    This will create a layout: app/views/layout/posts.html.haml
