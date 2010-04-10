@@ -1,0 +1,15 @@
+Description:
+    alt_model generator is an alternative model generator using Machinist
+    and Rspec.
+    
+    Just like Rspec model generator but creates also Machinist blueprint.
+    No fixture option.
+
+Example:
+    ./script/generate alt_model Account
+
+    This will create an Account model:
+        Model                  : app/models/account.rb
+        Spec                   : spec/models/account_spec.rb
+        Migration              : db/migrate/XXX_add_accounts.rb
+        Machinist blueprint in : spec/blueprints.rb
