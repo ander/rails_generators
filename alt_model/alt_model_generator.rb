@@ -1,5 +1,4 @@
 # Alternative model generator using Rspec and Machinist. No fixtures.
-# Some stuff shamelessly ripped from rspec_model generator.
 class AltModelGenerator < Rails::Generator::NamedBase
   
   def initialize(runtime_args, runtime_options = {})
@@ -24,23 +23,17 @@ class AltModelGenerator < Rails::Generator::NamedBase
   end
   
   def create_model_and_spec(m)
-    m.template "model.rb", File.join('app/models', class_path, "#{file_name}.rb")
-    m.template 'model_spec.rb', File.join('spec/models', class_path, "#{file_name}_spec.rb")
+    m.template "model:model.rb", 
+      File.join('app/models', class_path, "#{file_name}.rb")
+    m.template 'rspec_model:model_spec.rb', 
+      File.join('spec/models', class_path, "#{file_name}_spec.rb")
   end
   
   def migrate(m)
-    migration_file_path = file_path.gsub(/\//, '_')
-    migration_name = class_name
-    
-    if ActiveRecord::Base.pluralize_table_names
-      migration_name = migration_name.pluralize
-      migration_file_path = migration_file_path.pluralize
-    end
-    
     unless options[:skip_migration]
-      m.migration_template 'migration.rb', 'db/migrate', :assigns => {
-        :migration_name => "Create#{migration_name.gsub(/::/, '')}"
-        }, :migration_file_name => "create_#{migration_file_path}"
+      m.migration_template 'model:migration.rb', 'db/migrate', :assigns => {
+        :migration_name => "Create#{class_name.pluralize.gsub(/::/, '')}"
+        }, :migration_file_name => "create_#{file_path.gsub(/\//, '_').pluralize}"
     end
   end
   
