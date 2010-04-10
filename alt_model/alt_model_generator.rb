@@ -25,7 +25,7 @@ class AltModelGenerator < Rails::Generator::NamedBase
   def create_model_and_spec(m)
     m.template "model:model.rb", 
       File.join('app/models', class_path, "#{file_name}.rb")
-    m.template 'rspec_model:model_spec.rb', 
+    m.template 'model_spec.rb', 
       File.join('spec/models', class_path, "#{file_name}_spec.rb")
   end
   
