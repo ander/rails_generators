@@ -49,9 +49,7 @@ class AltModelGenerator < Rails::Generator::NamedBase
     
     blueprints_path = File.join('spec', 'blueprints.rb')
     
-    unless File.exists?(destination_path(blueprints_path))
-      m.file "blueprints.rb", blueprints_path
-    end
+    m.file "blueprints.rb", blueprints_path, :collision => :skip
     
     new_blueprint = "#{class_name}.blueprint do\n"
     attributes.each {|att| new_blueprint << "  #{att.name} { }\n"}
